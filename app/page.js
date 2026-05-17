@@ -1,10 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Image from "next/image";
 
 export default function Home(){
-
-const [search,setSearch]=useState("");
 
 const community=[];
 
@@ -12,16 +10,13 @@ for(let i=3062;i<=3270;i++){
 community.push(`/images/IMG_${i}.jpg`);
 }
 
-
 const pngs=[];
 
 for(let i=1;i<=101;i++){
 pngs.push(`/images/${i}.png`);
 }
 
-
 const mods=[
-
 "JEZ.JPG",
 "JOSH.JPG",
 "STEFAN.JPG",
@@ -36,77 +31,56 @@ const mods=[
 "KASH.JPG",
 "MEISON.JPG",
 "WHITESOCK.JPG",
-
 ].map(x=>`/images/${x}`);
 
-
-
 const all=[
-
 ...mods,
 ...pngs,
 ...community
-
 ];
-
-
-const filtered=useMemo(()=>{
-
-return all.filter(img=>
-
-img.toLowerCase()
-.includes(search.toLowerCase())
-
-);
-
-},[search]);
 
 
 return(
 
 <main className="page">
 
-<div className="hero">
-
-<h1>
-
-Ritual
-Community
-Wall
-
-</h1>
-
-<p>
-
-{all.length}+ members
-
-</p>
+<div className="stars"/>
 
 
-<input
+{/* NAVBAR */}
 
-placeholder="
-Search name..."
+<nav className="navbar">
 
-value={search}
+<div className="brand">
 
-onChange={(e)=>
-setSearch(
-e.target.value
-)
-}
-
+<Image
+src="/logo.png"
+width={28}
+height={28}
+alt=""
+priority
+className="logo"
 />
+
+<span>
+
+Ritual Wall
+
+</span>
 
 </div>
 
+</nav>
 
 
-<div className="grid">
+
+{/* GALLERY */}
+
+<section className="grid">
 
 {
 
-filtered.map((img,i)=>(
+all.map((img,i)=>(
 
 <div
 key={i}
@@ -114,12 +88,15 @@ className="card"
 >
 
 <img
-
 src={img}
-
 loading="lazy"
 
+onError={(e)=>{
 
+e.currentTarget.style.display=
+"none";
+
+}}
 
 />
 
@@ -129,7 +106,7 @@ loading="lazy"
 
 }
 
-</div>
+</section>
 
 
 
@@ -139,6 +116,8 @@ loading="lazy"
 
 min-height:100vh;
 
+padding:20px;
+
 background:
 linear-gradient(
 180deg,
@@ -147,89 +126,51 @@ linear-gradient(
 #511986
 );
 
-padding:40px;
+overflow:hidden;
 
+position:relative;
 }
 
 
-.hero{
 
-text-align:center;
+/* stars */
 
-margin-bottom:40px;
+.stars{
 
-color:white;
-}
+position:absolute;
+inset:0;
 
-
-.hero h1{
-
-font-size:
-clamp(
-40px,
-8vw,
-90px
+background:
+radial-gradient(
+white 1px,
+transparent 1px
 );
 
-margin:0;
-}
+background-size:
+90px 90px;
 
-
-.hero p{
-
-opacity:.8;
-
-font-size:20px;
+opacity:.08;
 }
 
 
 
-input{
+/* navbar */
 
-margin-top:20px;
+.navbar{
+
+position:sticky;
+top:15px;
+
+z-index:100;
+
+display:flex;
+justify-content:flex-start;
+align-items:center;
 
 padding:
-14px 20px;
+14px 22px;
 
-border:none;
-
-border-radius:
-20px;
-
-width:
-min(
-500px,
-90%
-);
-
-font-size:16px;
-}
-
-
-
-.grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(
-auto-fill,
-minmax(
-110px,
-1fr
-)
-);
-
-gap:16px;
-
-}
-
-
-.card{
-
-aspect-ratio:1;
-
-overflow:hidden;
+margin-bottom:35px;
 
 border-radius:
 18px;
@@ -239,20 +180,96 @@ rgba(
 255,
 255,
 255,
-.08
+0.08
 );
 
 backdrop-filter:
-blur(8px);
+blur(18px);
+}
 
-transition:.2s;
+
+
+.brand{
+
+display:flex;
+align-items:center;
+
+gap:12px;
+
+color:white;
+
+font-size:22px;
+font-weight:700;
+}
+
+
+.logo{
+
+animation:
+float 4s infinite;
+}
+
+
+@keyframes float{
+
+50%{
+
+transform:
+translateY(-4px);
+
+}
+
+}
+
+
+
+/* gallery */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fill,
+minmax(
+150px,
+1fr
+)
+);
+
+gap:18px;
+}
+
+
+
+.card{
+
+aspect-ratio:1;
+
+overflow:hidden;
+
+border-radius:
+20px;
+
+background:
+rgba(
+255,
+255,
+255,
+0.08
+);
+
+transition:
+.25s;
 }
 
 
 .card:hover{
 
 transform:
-translateY(-5px);
+translateY(-8px)
+scale(1.04);
 
 }
 
@@ -269,15 +286,9 @@ display:block;
 
 
 
-@media(
-max-width:700px
-){
+/* mobile */
 
-.page{
-
-padding:20px;
-}
-
+@media(max-width:700px){
 
 .grid{
 
@@ -288,6 +299,12 @@ repeat(
 );
 
 gap:10px;
+}
+
+
+.brand{
+
+font-size:18px;
 }
 
 }
