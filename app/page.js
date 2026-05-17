@@ -47,30 +47,27 @@ return(
 <div className="stars"/>
 
 
-{/* NAVBAR */}
+{/* HEADER */}
 
-<nav className="navbar">
-
-<div className="brand">
+<header className="hero">
 
 <Image
 src="/logo.png"
-width={28}
-height={28}
-alt=""
+width={80}
+height={80}
 priority
+alt=""
 className="logo"
 />
 
-<span>
+
+<h1>
 
 Ritual Wall
 
-</span>
+</h1>
 
-</div>
-
-</nav>
+</header>
 
 
 
@@ -88,7 +85,9 @@ className="card"
 >
 
 <img
+
 src={img}
+
 loading="lazy"
 
 onError={(e)=>{
@@ -116,7 +115,7 @@ e.currentTarget.style.display=
 
 min-height:100vh;
 
-padding:20px;
+padding:30px;
 
 background:
 linear-gradient(
@@ -126,9 +125,9 @@ linear-gradient(
 #511986
 );
 
-overflow:hidden;
-
 position:relative;
+
+overflow:hidden;
 }
 
 
@@ -154,59 +153,45 @@ opacity:.08;
 
 
 
-/* navbar */
+/* HEADER */
 
-.navbar{
-
-position:sticky;
-top:15px;
-
-z-index:100;
+.hero{
 
 display:flex;
-justify-content:flex-start;
+
+flex-direction:column;
+
+justify-content:center;
 align-items:center;
 
-padding:
-14px 22px;
+margin-bottom:50px;
 
-margin-bottom:35px;
-
-border-radius:
-18px;
-
-background:
-rgba(
-255,
-255,
-255,
-0.08
-);
-
-backdrop-filter:
-blur(18px);
+text-align:center;
 }
 
-
-
-.brand{
-
-display:flex;
-align-items:center;
-
-gap:12px;
-
-color:white;
-
-font-size:22px;
-font-weight:700;
-}
 
 
 .logo{
 
+width:90px!important;
+height:90px!important;
+
+margin-bottom:18px;
+
 animation:
-float 4s infinite;
+float 4s ease infinite;
+
+filter:
+drop-shadow(
+0 0 20px
+rgba(
+255,
+255,
+255,
+0.2
+)
+);
+
 }
 
 
@@ -215,9 +200,42 @@ float 4s infinite;
 50%{
 
 transform:
-translateY(-4px);
+translateY(-8px);
 
 }
+
+}
+
+
+
+.hero h1{
+
+margin:0;
+
+font-size:
+clamp(
+54px,
+8vw,
+110px
+);
+
+font-weight:800;
+
+line-height:.9;
+
+letter-spacing:
+-2px;
+
+color:white;
+
+text-shadow:
+0 10px 30px
+rgba(
+0,
+0,
+0,
+0.15
+);
 
 }
 
@@ -250,7 +268,7 @@ aspect-ratio:1;
 overflow:hidden;
 
 border-radius:
-20px;
+22px;
 
 background:
 rgba(
@@ -286,9 +304,28 @@ display:block;
 
 
 
-/* mobile */
+/* MOBILE */
 
 @media(max-width:700px){
+
+.page{
+
+padding:18px;
+}
+
+
+.logo{
+
+width:60px!important;
+height:60px!important;
+}
+
+
+.hero h1{
+
+font-size:48px;
+}
+
 
 .grid{
 
@@ -299,12 +336,6 @@ repeat(
 );
 
 gap:10px;
-}
-
-
-.brand{
-
-font-size:18px;
 }
 
 }
